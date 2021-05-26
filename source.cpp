@@ -224,6 +224,8 @@ void add_player_points(vector<player>& vect, int points[]) {
     }
 
     // worry about it later, you cant even get one round going lmao
+    // assuming i set is_game to false for this, pop their index into points array in descending order (1st, 2nd ... )
+    // set in_game back to true
     vect[points[0]].add_points(30);
     vect[points[0]].set_class("tycoon");
     vect[points[0]].player_in_out();
