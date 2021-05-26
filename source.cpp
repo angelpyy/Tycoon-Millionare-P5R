@@ -2,6 +2,12 @@
 // https://strangecastnews.com/tycoon-millionaire-persona-5-royal/
 // this is going alright but I've got to find a better way to organize this
 
+
+// TL;DR on how the game works: 4 players who each have 13-14 cards at hand. The goal of the game is to get rid of your cards as fast as possible by playing a stronger card than the previous player
+// The ranking of the cards are as follow: 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, 2, J
+// however, special cards exist, for example, the player holding the three of diamonds must the game. or the three of spades is the only card that can trump the joker.
+// there are more rules but I have yet to implement those
+
 #include <string>
 #include <iostream>
 #include <vector>
@@ -29,6 +35,7 @@ int main()
     vector<card> deck;
     vector<player> players;
 
+    // cant create new object each time 
     init_players(players);
 
     int game_round = 0;
@@ -68,8 +75,8 @@ int main()
 
     while (game_round < 3) {
         // everything is set in place, players have a way of telling whether theyre active in game
-        // players have a set of cards ranging from 13-14 cards at their disposal,
-        // all cards recognized as special by tycoon has been set (although not functional at the moment)
+        // players have a set of cards ranging from 13-14 cards at their hand, 
+        // all cards recognized as special by tycoon have been set (although not functional at the moment)
         // and we have found the player to start the game;
 
         add_player_points(players, point_array);
@@ -100,6 +107,7 @@ int main()
 }
 
 void init_deck(vector<card> &vect) {
+    // clear the deck to ensure there are no dupes
     vect.clear();
 
     for (int i = 0; i < 13; i++) {
@@ -167,15 +175,18 @@ void init_deck(vector<card> &vect) {
 }
 
 void init_players(vector<player>& vect) {
+    // create the player objects
     player p1;
     player p2;
     player p3;
     player p4;
 
+    // assuming this adds them as {p1, p2, p3, p4}
     vect.insert(vect.end(), { p1, p2, p3, p4 });
 }
 
 void shuffle_deck(vector<card> &vect) {
+    // randomize the set of cards
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     shuffle(vect.begin(), vect.end(), default_random_engine(seed));
 }
